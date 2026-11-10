@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: protemp-tracking-v4
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 app:app
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: TZONE_APP_ID
+        sync: false
+      - key: TZONE_APP_KEY
+        sync: false
+      - key: TZONE_APP_SECRET
+        sync: false
